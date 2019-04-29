@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Portfolio programisty</title>
+  <style media="screen">
+    section:first-of-type {
+      display: flex;
+      justify-content: space-between;
+      width: calc(120px + 50%);
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    section:first-of-type img {
+      border-radius: 50%;
+      width: 120px;
+      height: 120px;
+      border: 5px solid indianred;
+      margin: 2em;
+    }
+
+    section:last-of-type ul {
+      list-style-type: none;
+      margin: 0;
+      font-size: 5em;
+      padding: 0;
+      text-align: center;
+    }
+
+    section:last-of-type ul li {
+      transition: border-bottom 0.3s;
+      display: inline-block;
+      cursor: pointer;
+      border-bottom: solid 3px transparent;
+    }
+
+    section:last-of-type ul li:hover {
+      border-bottom-color: darkred;
+    }
+    section:last-of-type ul li a {
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+  <section>
+    <img src="assets/me.jpg" alt="Ja">
+    <custom-page page-name="about-me"></custom-page>
+  </section>
+  <section>
+    <ul>
+      <li onclick="controls.startGame()">🎮</li>
+      <li><a href="blog/index.html">📖</a></li>
+      <li onclick="controls.sayJoke()">😁</li>
+    </ul>
+  </section>
+  <!--
+<cheat-post post-name="obiekty" ></cheat-post>
+<cheat-post post-name="funkcje" ></cheat-post> -->
+</body>
+
+</html>
