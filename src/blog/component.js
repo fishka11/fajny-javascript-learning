@@ -48,14 +48,20 @@ export class Body extends HTMLElement {
     this.render();
   }
 
-  async render() {
+  async render(name) {
     const posts = await getMdsNames();
+    const fullPost = !!name;
     this.shadowRoot.innerHTML = (`
       <section>
         ${Body.renderStyles()}
         <div class="${style.container}">
           <main>
-            ${posts.reverse().map(postName => `<cheat-post post-name="${postName}" full-post="false"></cheat-post>`).join('<hr>')}
+            ${posts.reverse()
+        .map(postName => (`
+          <cheat-post post-name="${postName}" full-post="${fullPost}"></cheat-post>
+          <button>${fullPost ? 'Wróć' : 'Czytaj...'}</button>
+        `))
+        .join('<hr>')}
           </main>
           <aside>
             <slot name="right-side"></slot>
@@ -112,7 +118,9 @@ export class CheatPost extends HTMLElement {
 
   // noinspection JSUnusedGlobalSymbols
   attributeChangedCallback(name, oldValue, newValue) {
-    this.render();
+    if (oldValue !== newValue) {
+      this.render();
+    }
   }
 
   async render() {
