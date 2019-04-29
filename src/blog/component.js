@@ -55,7 +55,7 @@ export class Body extends HTMLElement {
         ${Body.renderStyles()}
         <div class="${style.container}">
           <main>
-            ${posts.reverse().map(postName => `<cheat-post post-name="${postName}"></cheat-post>`).join('<hr>')}
+            ${posts.reverse().map(postName => `<cheat-post post-name="${postName}" full-post="false"></cheat-post>`).join('<hr>')}
           </main>
           <aside>
             <slot name="right-side"></slot>
@@ -102,7 +102,7 @@ export class Body extends HTMLElement {
 export class CheatPost extends HTMLElement {
   // noinspection JSUnusedGlobalSymbols
   static get observedAttributes() {
-    return ['post-name'];
+    return ['post-name', 'full-post'];
   }
 
   constructor() {
@@ -117,11 +117,12 @@ export class CheatPost extends HTMLElement {
 
   async render() {
     const name = this.getAttribute('post-name');
+    const fullPost = this.getAttribute('full-post') === 'true';
     const mdContent = (await getMds(`js-cheatsheet/${name}.md`));
     this.shadowRoot.innerHTML = (`
       <article>
         <mark-down>
-          ${mdContent}
+          ${fullPost ? mdContent : mdContent.substr(0, 200)}
         </mark-down>
       </article>
     `);
