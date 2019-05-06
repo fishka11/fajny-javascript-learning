@@ -48,18 +48,18 @@ export class Body extends HTMLElement {
     this.render();
   }
 
-  async render(name) {
-    const posts = await getMdsNames();
+  async render(name = null) {
     const fullPost = !!name;
+    const posts = fullPost ? [name] : await getMdsNames();
     this.shadowRoot.innerHTML = (`
       <section>
         ${Body.renderStyles()}
         <div class="${style.container}">
           <main>
             ${posts.reverse()
-        .map(postName => (`
+        .map((postName, index) => (`
           <cheat-post post-name="${postName}" full-post="${fullPost}"></cheat-post>
-          <button>${fullPost ? 'Wróć' : 'Czytaj...'}</button>
+          <button id="${index}-${postName}">${fullPost ? 'Wróć' : 'Czytaj...'}</button>
         `))
         .join('<hr>')}
           </main>
@@ -69,6 +69,16 @@ export class Body extends HTMLElement {
         </div>
       </section>
     `);
+    posts.forEach((postName, index) => {
+      this.shadowRoot.getElementById(`${index}-${postName}`)
+        .addEventListener('click', () => {
+          if (!fullPost) {
+            this.render(postName);
+          } else {
+            this.render();
+          }
+        });
+    });
   }
 
   static renderStyles() {
@@ -130,7 +140,7 @@ export class CheatPost extends HTMLElement {
     this.shadowRoot.innerHTML = (`
       <article>
         <mark-down>
-          ${fullPost ? mdContent : mdContent.substr(0, 200)}
+          ${fullPost ? mdContent : `${mdContent.substr(0, 200)}...`}
         </mark-down>
       </article>
     `);
