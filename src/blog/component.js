@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
 import style from './style.css';
-import { getMds, getMdsNames } from '../github/service';
+import { getMd, getMdsNames } from '../github/service';
 
 class HTMLElementWithContent extends HTMLElement {
   constructor(tagName, tagStyle, content) {
@@ -136,7 +136,7 @@ export class CheatPost extends HTMLElement {
   async render() {
     const name = this.getAttribute('post-name');
     const fullPost = this.getAttribute('full-post') === 'true';
-    const mdContent = (await getMds(`js-cheatsheet/${name}.md`));
+    const mdContent = (await getMd(`js-cheatsheet/${name}.md`));
     this.shadowRoot.innerHTML = (`
       <article>
         <mark-down>

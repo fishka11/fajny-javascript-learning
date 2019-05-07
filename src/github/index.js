@@ -1,11 +1,5 @@
-import getRepos, { getMds } from './service';
+import GitHubRepos from './component';
 
 export default async () => {
-  (await getRepos()).forEach(r => alert(r));
+  customElements.define('gh-repos', GitHubRepos);
 };
-
-export async function cheats() {
-  const md = document.createElement('mark-down');
-  md.textContent = await getMds('arrays.md');
-  document.body.appendChild(md);
-}

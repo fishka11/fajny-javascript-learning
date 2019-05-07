@@ -47,22 +47,6 @@ hr
     border-top: 1px solid #ddd;
 }
 
-table
-{
-    background-color: transparent;
-    border-spacing: 0;
-    border-collapse: collapse;
-    border-top: 1px solid #ddd;
-}
-
-th, td
-{
-    padding: .5em 1em;
-    vertical-align: top;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
-
 a:link { color: royalblue; }
 a:visited { color: purple; }
 a:focus { color: black; }
@@ -189,13 +173,6 @@ Single styles
 {
     color: #fff !important;
     background-color: red;
-}
-
-.table
-{
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 20px;
 }
 
 .list-unstyled

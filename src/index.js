@@ -24,9 +24,11 @@ import sayJoke from './joke/index';
 import about from './about-me/index';
 import cheats from './blog/index';
 import startGame from './game/index';
+import startGHRepos from './github/index';
 
 about();
 cheats();
+startGHRepos();
 
 window.controls = {
   sayJoke,
