@@ -1,4 +1,5 @@
 /* eslint-disable import/prefer-default-export */
+import { dom } from '@fortawesome/fontawesome-svg-core';
 import style from './style.css';
 import { getMd, getMdsNames } from '../github/service';
 
@@ -50,7 +51,7 @@ export class Body extends HTMLElement {
 
   async render(name = null) {
     const fullPost = !!name;
-    const posts = fullPost ? [name] : await getMdsNames();
+    const posts = fullPost ? [name] : (await getMdsNames());
     this.shadowRoot.innerHTML = (`
       <section>
         ${Body.renderStyles()}
@@ -134,6 +135,7 @@ export class CheatPost extends HTMLElement {
   }
 
   async render() {
+    this.loading();
     const name = this.getAttribute('post-name');
     const fullPost = this.getAttribute('full-post') === 'true';
     const mdContent = (await getMd(`js-cheatsheet/${name}.md`));
@@ -144,5 +146,13 @@ export class CheatPost extends HTMLElement {
         </mark-down>
       </article>
     `);
+  }
+
+  loading() {
+    this.shadowRoot.innerHTML = '';
+    this.shadowRoot.appendChild(document.getElementById('blog-loading')
+      .content
+      .cloneNode(true));
+    dom.i2svg({ node: this.shadowRoot });
   }
 }
