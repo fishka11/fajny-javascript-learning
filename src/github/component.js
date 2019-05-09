@@ -1,3 +1,4 @@
+import { dom } from '@fortawesome/fontawesome-svg-core';
 import getRepos from './service';
 
 export default class GitHubRepos extends HTMLElement {
@@ -11,13 +12,23 @@ export default class GitHubRepos extends HTMLElement {
     const content = (await getRepos());
     this.shadowRoot.innerHTML = `
       ${GitHubRepos.renderStyles()}
-      <h2>My <img src="https://github.githubassets.com/images/icons/emoji/octocat.png" alt="octocat"> repositories</h2>
+      ${GitHubRepos.renderHeader()}
       <table>
         <tbody>
            ${content.map(r => r.toTableRow()).join('\n')}
         </tbody>
       </table>
     `;
+    dom.i2svg({ node: this.shadowRoot });
+  }
+
+  static renderHeader() {
+    const logo = document.getElementById('gh-logo')
+      .content
+      .cloneNode(true);
+    const h2 = document.createElement('h2');
+    h2.appendChild(logo);
+    return h2.outerHTML;
   }
 
   static renderStyles() {
