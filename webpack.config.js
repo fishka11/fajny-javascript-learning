@@ -8,9 +8,9 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'bundle.js'
+    filename: 'main.js'
   },
-  devtool: 'source-map',
+  // devtool: 'source-map',
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
@@ -44,5 +44,17 @@ module.exports = {
         ]
       }
     ]
+  },
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /node_modules/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
   }
 };
