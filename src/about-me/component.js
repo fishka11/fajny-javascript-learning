@@ -4,6 +4,7 @@ import { getMd } from '../github/service';
 
 @markdownRenderer
 export class AboutMe extends HTMLElement {
+  // noinspection JSUnusedGlobalSymbols
   static get observedAttributes() {
     return ['page-name'];
   }
@@ -13,6 +14,7 @@ export class AboutMe extends HTMLElement {
     this.attachShadow({ mode: 'open' });
   }
 
+  // noinspection JSUnusedGlobalSymbols
   attributeChangedCallback(name, oldValue, newValue) {
     if (newValue !== oldValue) this.render();
   }
