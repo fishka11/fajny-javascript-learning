@@ -1,5 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { dom } from '@fortawesome/fontawesome-svg-core';
+
+import { markdownRenderer } from '../common/decorator';
 import style from './style.css';
 import { getMd, getMdsNames } from '../github/service';
 
@@ -116,6 +118,7 @@ export class Body extends HTMLElement {
   }
 }
 
+@markdownRenderer
 export class CheatPost extends HTMLElement {
   // noinspection JSUnusedGlobalSymbols
   static get observedAttributes() {
@@ -141,9 +144,7 @@ export class CheatPost extends HTMLElement {
     const mdContent = (await getMd(`js-cheatsheet/${name}.md`));
     this.shadowRoot.innerHTML = (`
       <article>
-        <mark-down>
-          ${fullPost ? mdContent : `${mdContent.substr(0, 200)}...`}
-        </mark-down>
+          ${this.renderMarkdown(fullPost ? mdContent : `${mdContent.substr(0, 200)}...`)}
       </article>
     `);
   }

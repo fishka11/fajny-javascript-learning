@@ -1,6 +1,8 @@
 /* eslint-disable import/prefer-default-export */
+import { markdownRenderer } from '../common/decorator';
 import { getMd } from '../github/service';
 
+@markdownRenderer
 export class AboutMe extends HTMLElement {
   static get observedAttributes() {
     return ['page-name'];
@@ -18,10 +20,6 @@ export class AboutMe extends HTMLElement {
   async render() {
     const name = this.getAttribute('page-name');
     const content = (await getMd(`${name}.md`));
-    this.shadowRoot.innerHTML = `
-      <mark-down>
-        ${content}
-      </mark-down>
-    `;
+    this.shadowRoot.innerHTML = this.renderMarkdown(content);
   }
 }

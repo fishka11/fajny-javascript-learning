@@ -33,6 +33,15 @@ module.exports = {
           { loader: 'style-loader' },
           { loader: 'css-loader?modules', options: { modules: true } }
         ]
+      },
+      {
+        test: /\.js$/,
+        use: ['awesome-typescript-loader'],
+        include: [
+          path.resolve(__dirname, 'src/common'),
+          path.resolve(__dirname, 'src/about-me'),
+          path.resolve(__dirname, 'src/blog')
+        ]
       }
     ]
   }
