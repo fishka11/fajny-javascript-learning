@@ -1,22 +1,14 @@
 /* eslint-disable import/prefer-default-export */
-import { markdownRenderer } from '../common/decorator';
+import { markdownRenderer, onAttributesChangeRenderer } from '../common/decorator';
 import { getMd } from '../github/service';
 
+@onAttributesChangeRenderer(['post-name'])
 @markdownRenderer
 export class AboutMe extends HTMLElement {
-  // noinspection JSUnusedGlobalSymbols
-  static get observedAttributes() {
-    return ['page-name'];
-  }
 
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
-  }
-
-  // noinspection JSUnusedGlobalSymbols
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (newValue !== oldValue) this.render();
+    this.init();
   }
 
   async render() {
