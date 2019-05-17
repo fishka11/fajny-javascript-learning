@@ -5,7 +5,6 @@ import { getMd } from '../github/service';
 @onAttributesChangeRenderer(['post-name'])
 @markdownRenderer
 export class AboutMe extends HTMLElement {
-
   constructor() {
     super();
     this.init();

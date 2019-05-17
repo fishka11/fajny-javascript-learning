@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { dom } from '@fortawesome/fontawesome-svg-core';
 
-import { markdownRenderer } from '../common/decorator';
+import { markdownRenderer, onAttributesChangeRenderer } from '../common/decorator';
 import style from './style.css';
 import { getMd, getMdsNames } from '../github/service';
 
@@ -118,23 +118,12 @@ export class Body extends HTMLElement {
   }
 }
 
+@onAttributesChangeRenderer(['post-name', 'full-post'])
 @markdownRenderer
 export class CheatPost extends HTMLElement {
-  // noinspection JSUnusedGlobalSymbols
-  static get observedAttributes() {
-    return ['post-name', 'full-post'];
-  }
-
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
-  }
-
-  // noinspection JSUnusedGlobalSymbols
-  attributeChangedCallback(name, oldValue, newValue) {
-    if (oldValue !== newValue) {
-      this.render();
-    }
+    this.init();
   }
 
   async render() {
